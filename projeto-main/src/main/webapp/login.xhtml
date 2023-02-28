@@ -1,0 +1,55 @@
+<!-- Página de template de exemplo -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+<!-- Indica-se importar scripts Javascript e arquivos CSS externos dentro do head de um template -->
+<h:head>
+	<!-- Nome que aparecerá na aba do navegador para o usuário -->
+    <title>CManager Login</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"></link>
+    <!-- <h:outputStylesheet name="css/screen.css" />  -->
+    <h:outputStylesheet name="css/login.css"/>
+     <h:outputStylesheet name="css/style.css"/>
+</h:head>
+<h:body>
+      
+
+		<div class="center">
+		<h2>Login</h2>
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel for="usuario" value="Usuario:" />
+                <h:inputText id="usuario" value="#{loginController.usuario.usuario}" />
+
+				<h:outputLabel for="senha" value="Senha:" />
+                <h:inputText id="senha" value="#{loginController.usuario.senha}" />	
+            </h:panelGrid>
+			
+            <div class ="buttons row">
+            	<div class="col-3">
+                <h:panelGrid columns="2">
+                    <h:commandButton styleClass="button" value="Login" action="#{loginController.login}"/>
+                    <h:messages styleClass="messages" errorClass="invalid" infoClass="valid" warnClass="warning" globalOnly="true" />
+                </h:panelGrid>
+                </div>
+                <div class="col-3">
+               	<h:panelGrid columns="2">
+                    <h:commandButton styleClass="button" value="Logout" action="#{loginController.logout}"/>
+                </h:panelGrid>
+                </div>
+            </div>
+        </h:form>
+        </div>
+</h:body>
+</html>
+    
+    
+    
+    
+    
+  

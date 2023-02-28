@@ -1,0 +1,282 @@
+<!-- Página de template de exemplo -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+<!-- Indica-se importar scripts Javascript e arquivos CSS externos dentro do head de um template -->
+<h:head>
+	<!-- Nome que aparecerá na aba do navegador para o usuário -->
+    <title>CManager</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"></link>
+    <!-- <h:outputStylesheet name="css/screen.css" />  -->
+    <h:outputStylesheet name="css/style.css"/>
+</h:head>
+<h:body>
+    <div id="container" class="container">
+        <div class="row main-grid">
+        
+        	<!-- Conteúdo da SideBar -->
+	        <div class="col-md-3 sideBar justify-content-center">
+	      
+		        <h:form id="form" styleClass="sideBarForm">
+		        	<div>
+		        	<h4 id="contratosTitle">Contratos</h4>
+		        	<div class="division"></div>
+	            	<div class="justify-content-center">
+	            	<div class="show-cadastro-container">
+	            		<div id="show-cadastro" class="show-cadastro">
+	            			+
+	            		</div>
+	            	</div>
+			        <h:dataTable class="contratos-list" id="dt-contratos" widgetVar="dtcontratos" var="c" value="#{contratoController.listaContratos}">
+			           	<div class="listaContratosConteudo">
+				            <h:column headerText="Contrato" sortBy="#{c.titulo}">
+				                <h:outputText class="contrato_id" value="#{c.id}"/>
+				            </h:column>		          
+			            </div>
+			       
+			        </h:dataTable>
+			        
+			        <!--Os elementos abaixo servem apenas para atualizar
+			        o número do contrato que será apresentado ao usuario -->
+			        <!-- Update Contrato atual -->
+			        <!-- Vai servir de aux lembrar de botar display none nessa div -->
+			        <div style="display:none;">
+				        <h:commandButton id="register" action="#{mainPageController.updateContratoAtual}" value="Update" styleClass="register updateNumContrato" update="updatable"></h:commandButton>
+			            <h:inputText styleClass="num_contrato" id="num_contrato" value="#{mainPageController.numAtual}"/>
+			            <h:message for="num_contrato" errorClass="invalid" />
+		            </div>
+		            <h5 id="contratosTitle">Prestes à Vencer</h5>
+		            <div class="division2"></div>
+		            <h:dataTable class="contratos-list" id="dt-contratosVecimento" widgetVar="dtcontratosVencimento" var="c" value="#{mainPageController.expiringForms}">
+			           	<div class="listaContratosConteudo">
+				            <h:column headerText="Contrato" sortBy="#{c.num_contrato}">
+				                <h:outputText class="contrato_id" value="#{c.num_contrato}"/>
+				            </h:column>		          
+			            </div>
+			        </h:dataTable>
+       		       	<h:commandButton id="goToPartes"
+                     action="#{mainPageController.goToPartes}"
+                     value="Gerenciar Partes" styleClass="nextPage" />
+                     <h:commandButton id="goToCadastro"
+                     action="#{mainPageController.goToCadastro}"
+                     value="Cadastrar Usuário" styleClass="nextPage" />
+		            </div>
+		            
+		           </div>
+			    </h:form>
+		    </div>
+		    
+		    <!--Conteúdo da tela1 Dados do Contrato -->
+		    <div id="screen1" class="col-md-9">
+		    <div class="paper-sheet row">
+		    <h1 id="updatable">#{mainPageController.contratoAtual.titulo}</h1>
+		    <!--Dados do Contrato -->
+		   	<div class="col-6">
+	             <h:form>
+		            <h:panelGrid columns="3" columnClasses="titleCell">
+		                <h:outputLabel for="titulo" value="Titulo de Contrato" />
+		                <h:inputText id="titulo" value="#{mainPageController.contratoAtual.titulo}" />
+		                <h:message for="titulo" errorClass="invalid" />
+		           
+		                <p:outputLabel for="basic" value="Basic"/>
+		            	<p:datePicker styleClass="main" id="basic" value="#{mainPageController.contratoAtual.data_criacao}" />
+		                <h:message for="data" errorClass="invalid" />
+		
+						<h:outputLabel for="status" value="Status:" />
+		                <h:inputText id="status" value="#{mainPageController.contratoAtual.status}"/>
+		                <h:message for="status" errorClass="invalid" />
+		                
+		                <h:outputLabel for="num" value="Número de Contrato" />
+		                <h:inputText styleClass="numContratoAtual" id="num" value="#{mainPageController.contratoAtual.id}" />
+		                <h:message for="num" errorClass="invalid" />
+		            </h:panelGrid> 
+		         </h:form> 
+		    </div>  
+		   	<!--AdicionarParte -->
+		   	<div class="col-6">
+	        <h:form>
+		  		<p:outputLabel for="addParte" value="Adicionar Parte: "/>
+		        <p:selectOneMenu id="addParte" value="#{participaController.novoParticipa.cnpj_parte}">
+		            <f:selectItems value="#{parteController.listaPartes}" var="c" itemLabel="#{c.cnpj}" itemValue="#{c.cnpj}" />
+		            <p:column>
+		                <h:outputText value="#{c.nome}" />
+		            </p:column>
+		        </p:selectOneMenu>
+		        
+            	<!--Javascript hides this -->
+            	<!-- Registro de Participa, fica escondido pq o usario n deve
+            	ter a opç -->
+                <h:inputText  styleClass="num_contratoForm" value="#{participaController.novoParticipa.num_contrato}" />
+                
+	             <h:dataTable id="dt-partes" widgetVar="dtpartes" var="p" value="#{mainPageController.listaParteAtual}">
+		            <f:facet name="header">
+		                <div>
+		                    <span style="font-weight: bold">CNPJ Participantes</span>
+		                </div>
+		            </f:facet>
+		
+		            <h:column headerText="cnpj">
+		                <h:outputText value="#{p.cnpj_parte}" />
+		            </h:column>
+	
+		        </h:dataTable>
+		        
+			    <p>
+	                <h:panelGrid columns="2">
+	                    <h:commandButton id="adicionarParte"
+	                        action="#{participaController.register}"
+	                        value="Adicionar" styleClass="register" />
+	                    <h:messages styleClass="messages"
+	                        errorClass="invalid" infoClass="valid"
+	                        warnClass="warning" globalOnly="true" />
+	                </h:panelGrid>
+	            </p>
+	        </h:form>
+	        </div>
+	        
+	     
+		    
+	        <!-- form que Vai aparecer-->
+	    	<h:form id="formForm">
+		    <h4>Formulário de Contrato</h4>
+            <div class="row">
+            	<h:inputText style="display:none;" styleClass="num_contratoForm" value="#{mainPageController.formAtual.num_contrato}" />
+                <div class="col-6">
+                <h:outputLabel for="categoria" value="Categoria" />
+                <h:inputText id="categoria" value="#{mainPageController.formAtual.categoria}" />
+                <h:message for="categoria" errorClass="invalid" />
+            
+                <h:outputLabel for="objeto" value="Objeto" />
+                <h:inputText id="objeto" value="#{mainPageController.formAtual.objeto}" />
+                <h:message for="objeto" errorClass="invalid" />
+                
+                <h:outputLabel for="valor" value="Valor" />
+                <h:inputText id="valor" value="#{mainPageController.formAtual.valor}" />
+                <h:message for="valor" errorClass="invalid" />
+
+                <p:outputLabel for="data_ass" value="Data de Assinatura"/>
+            	<p:datePicker id="data_ass" value="#{mainPageController.formAtual.data_ass}" />
+                <h:message for="data_ass" errorClass="invalid" />
+                
+                <p:outputLabel for="data_homologacao" value="Data da Publicação"/>
+            	<p:datePicker id="data_homologacao" value="#{mainPageController.formAtual.data_homologacao}" />
+                <h:message for="data_homologacao" errorClass="invalid" />
+                
+                <p:outputLabel for="data_vencimento" value="Data de Vencimento"/>
+            	<p:datePicker id="data_vencimento" value="#{mainPageController.formAtual.data_vencimento}" />
+                <h:message for="data_vencimento" errorClass="invalid" />
+                
+                <p:outputLabel for="prazo_entrega" value="Prazo de Entrega"/>
+            	<p:datePicker id="prazo_entrega" value="#{mainPageController.formAtual.prazo_entrega}" />
+                <h:message for="prazo_entrega" errorClass="invalid" />
+                </div>
+                <!--  -->
+                <div class="col-6">
+                <p:outputLabel for="prazo_vigencia" value="Prazo de Vigência"/>
+            	<p:datePicker id="prazo_vigencia" value="#{mainPageController.formAtual.prazo_vigencia}" />
+                <h:message for="prazo_vigencia" errorClass="invalid" />
+                  
+                <h:outputLabel for="n_processo_admin" value="Número de Processo Administrativo" />
+                <h:inputText id="n_processo_admin" value="#{mainPageController.formAtual.n_processo_admin}" />
+                <h:message for="n_processo_admin" errorClass="invalid" />
+                
+                <h:outputLabel for="aditivo_contratual" value="Aditivo Contratual" />
+                <h:inputText id="aditivo_contratual" value="#{mainPageController.formAtual.aditivo_contratual}" />
+                <h:message for="aditivo_contratual" errorClass="invalid" />
+                
+                <h:outputLabel for="saldo_contratual" value="Saldo Contratual" />
+                <h:inputText id="saldo_contratual" value="#{mainPageController.formAtual.saldo_contratual}" />
+                <h:message for="saldo_contratual" errorClass="invalid" />
+                
+                <h:outputLabel for="dotacao_orcamentaria" value="Dotação Orçamentária" />
+                <h:inputText id="dotacao_orcamentaria" value="#{mainPageController.formAtual.dotacao_orcamentaria}" />
+                <h:message for="dotacao_orcamentaria" errorClass="invalid" />
+              
+                <h:outputLabel for="indice_reajuste" value="Indice de Reajuste" />
+                <h:inputText id="indice_reajuste" value="#{mainPageController.formAtual.indice_reajuste}" />
+                <h:message for="indice_reajuste" errorClass="invalid" />
+                
+                <h:outputLabel for="mod_licitatoria" value="Modalidade Licitatória"/>
+                <h:inputText id="mod_licitatoria" value="#{mainPageController.formAtual.mod_licitatoria}" />
+                <h:message for="mod_licitatoria" errorClass="invalid" />
+                </div>
+                <div class="row editButtons">
+                <div class="col-2">
+	                <h:panelGrid columns="2">
+	                    <p:commandButton id="editForm"
+	                        action="#{mainPageController.updateForm}"
+	                        value="Salvar" styleClass="editForm" update="formForm"/>
+	                    <h:messages styleClass="messages"
+	                        errorClass="invalid" infoClass="valid"
+	                        warnClass="warning" globalOnly="true" />
+	                </h:panelGrid>
+	            </div>
+	            
+	            <div class="col-2">
+	                <h:panelGrid columns="2">
+	                    <h:commandButton styleClass="delButton" id="delContrato"
+	                        action="#{mainPageController.deleteContrato}"
+	                        value="Excluir" update="formForm"/>
+	                    <h:messages styleClass="messages"
+	                        errorClass="invalid" infoClass="valid"
+	                        warnClass="warning" globalOnly="true" />
+	                </h:panelGrid>
+	            </div>
+	            </div>
+                
+            </div>
+		    </h:form>
+	        </div>
+	        </div>
+	        
+	    <!-- Cadastro de Contratos -->
+	    <div id="screen2" class="col-md-9 screen2 notShow">
+	    <div class="paper-sheet">
+	        <h:form>
+	            
+	            <h1>Cadastro de Contrato</h1>
+	            <h:panelGrid columns="3" columnClasses="titleCell">
+	                <h:outputLabel for="titulo" value="Titulo de Contrato" />
+	                <h:inputText id="titulo" value="#{contratoController.novoContrato.titulo}" />
+	                <h:message for="titulo" errorClass="invalid" />
+	           
+	                <p:outputLabel for="basic" value="Data de Criação"/>
+	            	<p:datePicker styleClass="main" id="basic" value="#{contratoController.novoContrato.data_criacao}" />
+	                <h:message for="data" errorClass="invalid" />
+	
+					<h:outputLabel for="status" value="Status:" />
+	                <h:inputText id="status" value="#{contratoController.novoContrato.status}"/>
+	                <h:message for="status" errorClass="invalid" />
+	                
+	                <h:outputLabel for="num" value="Número de Contrato" />
+	                <h:inputText id="num" value="#{contratoController.novoContrato.id}" />
+	                <h:message for="num" errorClass="invalid" />
+	            </h:panelGrid>
+				
+	             <p>
+            		<h:panelGrid columns="2">
+                    <h:commandButton id="register"
+                        action="#{contratoController.register}"
+                        value="Cadastrar" styleClass="register" />
+                    <h:messages styleClass="messages"
+                        errorClass="invalid" infoClass="valid"
+                        warnClass="warning" globalOnly="true" />
+                </h:panelGrid>
+	            </p>
+	            
+	           
+	        </h:form>
+	  	</div>
+	  	</div>
+        </div>
+    </div>
+    		 <script type="text/javascript" 
+       			src="resources/script/mainPageScript.js">
+     		</script>
+</h:body>
+</html>

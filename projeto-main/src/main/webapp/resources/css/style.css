@@ -1,0 +1,257 @@
+@charset "UTF-8";
+/*IMPORTANTE!!!!
+MUDANÇAS FEITAS NO CSS SÓ VÃO APARECER NA TELA 
+SE VOCE PRESSIONAR CTR F5!!!!!!!!!!!!!!!!!!!!*/
+
+.invalid
+{
+	color:red;
+	display:block;
+	font-size:11px;
+}
+
+
+
+.division
+{
+	margin-left:6%;
+	border-top: solid 1px white;
+	margin-top:20px;
+	width:88%;
+	margin-bottom:20px;
+}
+.division2
+{
+	margin-left:6%;
+	border-top: solid 1px white;
+	width:88%;
+	margin-bottom:10px;
+}
+
+
+label
+{
+	font-size:12px !important;
+}
+
+td
+{
+	all:unset!important;
+}
+
+input, label {
+    display:block;
+}
+
+input, .ui-selectonemenu {
+
+  padding:10px;
+  height:30px!important;
+  border-top-style: hidden!important;
+  border-right-style: hidden!important;
+  border-left-style: hidden!important;
+  border-bottom: 1px solid #c9c9c9!important;
+  font-size:16px!important;
+  color:#262625;
+  width:25vw;
+}
+
+h4{
+	margin-top:30px !important;
+}
+
+input:focus {
+  outline: none!important;
+   border-bottom: 1px solid green;
+}
+
+.ui-inputfield, .ui-selectonemenu
+{
+	
+	display:block!important;
+	border-radius:0px!important;
+}
+
+.ui-inputfield:focus
+{
+	box-shadow: none!important;
+	outline: none!important;
+}
+
+.ui-outputlabel
+{
+	display:block!important;
+}
+
+
+.notShow
+{
+	display:none;
+}
+
+#screen2
+{
+	background-color:#d3dfe8;
+	padding:40px;
+}
+
+#screen1
+{
+	background-color:#d3dfe8;
+	padding:40px;
+}
+
+.paper-sheet
+{
+	padding:20px;
+	border-radius:10px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	background-color: white;
+	height:100%;
+	width:100%;
+}
+
+
+.container
+{
+	margin:0px !important;
+	padding:0px !important;
+}
+
+.main-grid
+{
+	width:100vw!important;
+	height:100vh!important;
+}
+
+.contratos-list
+{
+	display:grid!important;
+	justify-items:center!important;
+	
+}
+/*set display block to padding to have effect 
+Change contratos list here*/
+.contratos-list > tbody > tr
+{
+	display:block;
+	margin-left:5%!important;
+	font-size: 14px !important;
+	width: 90% !important;
+	padding:.5vw!important;
+}
+
+.contratos-list > tbody > tr:hover
+{
+	border-radius:5px;
+	background-color:white;
+	color:gray;
+	transition: 0.2s;
+}
+
+
+.contratos-list > thead
+{
+	display:block;
+	
+	border-radius:.1vw!important;
+	font-size: 1vw !important;
+	width: 90% !important;
+	padding:.5vw!important;
+}
+
+
+#contratosTitle
+{
+	margin-left:6%;
+}
+
+.show-cadastro-container
+{
+	color:gray;
+	font-size: 25px;
+	border-radius:5px;
+	display:grid;
+	padding:.1vw;
+	margin-left:10%;
+	width:80%;
+	background-color:white;
+	color:rgb(10, 10, 20);;
+	border: solid 1px white;
+	justify-content:center;
+	transition:.2s;
+}
+
+.show-cadastro-container:hover
+{
+	border: solid 1px white;
+	background-color: #d3dfe8;
+	transition:.2s;
+}
+
+.nextPage
+{
+	margin-top:30px;
+	color:gray;
+	font-size: 25px;
+	border-radius:5px;
+	display:grid;
+	padding:.1vw;
+	margin-left:10%;
+	width:80%;
+	background-color:white;
+	color:rgb(10, 10, 20);
+	border-top: solid 1px white!important;
+	border-left: solid 1px white!important;
+	border-right: solid 1px white!important;
+	justify-content:center;
+	transition:.2s;
+}
+.nextPage:hover
+{
+	border: solid 1px white;
+	background-color:#d3dfe8;
+	transition:.2s;
+}
+
+
+.contratos-list>tbody
+{
+	display:block;
+	width:100%!important;
+	padding:0;
+	margin:0;
+	padding:5%!important;
+}
+
+.sideBarForm
+{
+	padding:0;
+	width:100%;
+}
+
+
+.sideBar
+{
+	padding:0px !important;
+	display:flex;
+	color:white;
+	background-color:#191e21;;
+}
+
+.editButtons
+{
+	padding-top:30px;
+}
+
+.delButton
+{
+	padding: 0px;
+	text-align:auto;
+	border-radius:6px;
+	width:80px;
+	height:40px!important;
+	color:white;
+	background-color:red;
+}
+
